@@ -15,3 +15,13 @@ Route::get('/', function()
 {
 	return View::make('hello');
 });
+
+Route::get('list', 'ItemController@listItems');
+
+Route::get('new', 'ItemController@getNew');
+
+Route::post('new', 'ItemController@postNew');
+
+Route::get('edit/{id}', 'ItemController@editItem');
+
+Route::get('delete/{id}', 'ItemController@deleteItem');

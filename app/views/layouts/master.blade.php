@@ -1,6 +1,6 @@
 <html>
 	<body>
 		<h1>Inventory app</h1>
-		@yield('content')
+		<div>@yield('content')</div>
 	</body>
 </html>

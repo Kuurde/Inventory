@@ -16,7 +16,7 @@ class ItemController extends BaseController {
 	 */
 	public function getNew() 
 	{
-		
+		return View::make('new');
 	}
 	
 	/**
@@ -24,7 +24,15 @@ class ItemController extends BaseController {
 	 */
 	public function postNew()
 	{
+		$input = Input::except('_token');
 		
+		$item = new Item;
+		$item->name = $input['name'];
+		$item->amount = $input['amount'];
+		$item->description = $input['description'];
+		$item->save();
+		
+		return Redirect::to('list');
 	}
 	
 	/**

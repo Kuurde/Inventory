@@ -36,11 +36,28 @@ class ItemController extends BaseController {
 	}
 	
 	/**
-	 * Edit item
+	 * Returns a form to edit an item
 	 */
-	public function editItem($id)
+	public function getEdit($id)
 	{
+		$item = Item::find($id);
+		return View::make('edit')->with('item', $item);
+	}
+	
+	/**
+	 * Persist the changes
+	 */
+	public function postEdit($id)
+	{
+		$input = Input::except('_token');
 		
+		$item = Item::find($id);
+		$item->name = $input['name'];
+		$item->amount = $input['amount'];
+		$item->description = $input['description'];
+		$item->save();
+		
+		return Redirect::to('list');
 	}
 	
 	/**
@@ -48,7 +65,9 @@ class ItemController extends BaseController {
 	 */
 	public function deleteItem($id)
 	{
-		
+		$item = Item::find($id);
+		$item->delete();
+		return Redirect::to('list');
 	}
 
 }

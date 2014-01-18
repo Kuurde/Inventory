@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
-	<a href="{{ URL::to('new') }}">Add item</a>
+	{{ link_to_route('getNew', 'Add new item') }}
 	<table>
 		<tr>
 			<th>Name</th>
@@ -13,8 +13,8 @@
 				<td>{{{ $item->name }}}</td>
 				<td>{{{ $item->amount }}}</td>
 				<td>{{{ $item->description }}}</td>
-				<td>Edit</td>
-				<td>Delete</td>
+				<td>{{ link_to_route('getEdit', 'Edit', $item->id) }}</td>
+				<td>{{ link_to_route('delete', 'Delete', $item->id) }}</td>
 			</tr>
 		@endforeach
 	</table>

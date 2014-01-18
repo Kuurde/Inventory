@@ -1,8 +1,8 @@
 @extends('layouts.master')
 
 @section('content')
-	{{ link_to_route('list', 'Return to  list') }}
-	{{ Form::open(array('url' => 'new')) }}
+	{{ link_to_route('list', 'Return to list') }}
+	{{ Form::model($item, array('route' => array('postEdit', $item->id))) }}
 		<table>
 			<tr>
 				<td>{{ Form::label('name', 'Name') }}</td>

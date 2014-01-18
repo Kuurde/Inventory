@@ -16,12 +16,14 @@ Route::get('/', function()
 	return View::make('hello');
 });
 
-Route::get('list', 'ItemController@listItems');
+Route::get('list', array('as' => 'list', 'uses' => 'ItemController@listItems'));
 
-Route::get('new', 'ItemController@getNew');
+Route::get('new', array('as' => 'getNew', 'uses' => 'ItemController@getNew'));
 
-Route::post('new', 'ItemController@postNew');
+Route::post('new', array('as' => 'postNew', 'uses' => 'ItemController@postNew'));
 
-Route::get('edit/{id}', 'ItemController@editItem');
+Route::get('edit/{id}', array('as' => 'getEdit', 'uses' => 'ItemController@getEdit'));
 
-Route::get('delete/{id}', 'ItemController@deleteItem');
+Route::post('edit/{id}', array('as' => 'postEdit', 'uses' => 'ItemController@postEdit'));
+
+Route::get('delete/{id}', array('as' => 'delete', 'uses' => 'ItemController@deleteItem'));

@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.master')
 
 @section('content')
 	<table>
@@ -17,5 +17,4 @@
 			</tr>
 		@endforeach
 	</table>
-	
 @stop

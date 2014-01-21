@@ -7,11 +7,19 @@ class Item extends Eloquent {
 	protected $fillable = array('name', 'amount', 'description');
 	protected $guarded = array('id');
 	
-	public static function validate($input) {
-		$rules = array(
-			'name' => 'Required',
-			'amount' => 'Required|Integer|Min:1'
-		);
+	public static function validate($input, $id = null) {
+		if(is_null($id)) {
+			$rules = array(
+				'name' => 'Required|Unique:items',
+				'amount' => 'Required|Integer|Min:1'
+			);
+		}
+		else {
+			$rules = array(
+				'name' => 'Required|Unique:items,name,'.$id,
+				'amount' => 'Required|Integer|Min:1'
+			);
+		}
 		
 		return Validator::make($input, $rules);
 	}

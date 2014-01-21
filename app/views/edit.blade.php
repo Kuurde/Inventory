@@ -1,6 +1,14 @@
 @extends('layouts.master')
 
 @section('content')
+	@if ( $errors-> count() > 0)
+		<p>Please review the following error messages:</p>
+		<ul>
+			@foreach ( $errors->all() as $message )
+				<li>{{ $message }}</li>
+			@endforeach
+		</ul>
+	@endif
 	{{ link_to_route('list', 'Return to list') }}
 	{{ Form::model($item, array('route' => array('postEdit', $item->id))) }}
 		<table>

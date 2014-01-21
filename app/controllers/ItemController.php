@@ -26,13 +26,21 @@ class ItemController extends BaseController {
 	{
 		$input = Input::except('_token');
 		
-		$item = new Item;
-		$item->name = $input['name'];
-		$item->amount = $input['amount'];
-		$item->description = $input['description'];
-		$item->save();
+		$validator = Item::validate($input);
 		
-		return Redirect::to('list');
+		if($validator->passes()) {
+			$item = new Item;
+			$item->name = $input['name'];
+			$item->amount = $input['amount'];
+			$item->description = $input['description'];
+			$item->save();
+			
+			return Redirect::to('list');
+		}
+		else {
+			Input::flash();
+			return Redirect::to('new')->withErrors($validator->messages());
+		}
 	}
 	
 	/**
@@ -51,13 +59,21 @@ class ItemController extends BaseController {
 	{
 		$input = Input::except('_token');
 		
-		$item = Item::find($id);
-		$item->name = $input['name'];
-		$item->amount = $input['amount'];
-		$item->description = $input['description'];
-		$item->save();
+		$validator = Item::validate($input, $id);
 		
-		return Redirect::to('list');
+		if($validator->passes()) {
+			$item = Item::find($id);
+			$item->name = $input['name'];
+			$item->amount = $input['amount'];
+			$item->description = $input['description'];
+			$item->save();
+			
+			return Redirect::to('list');
+		}
+		else {
+			Input::flash();
+			return Redirect::to('edit/'.$id)->withErrors($validator->messages());
+		}
 	}
 	
 	/**

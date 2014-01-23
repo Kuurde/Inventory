@@ -51,6 +51,11 @@ App::error(function(Exception $exception, $code)
 	Log::error($exception);
 });
 
+App::error(function(ModelNotFoundException $e)
+{
+    return View::make('errors.missing');
+});
+
 /*
 |--------------------------------------------------------------------------
 | Maintenance Mode Handler

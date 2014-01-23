@@ -48,7 +48,7 @@ class ItemController extends BaseController {
 	 */
 	public function getEdit($id)
 	{
-		$item = Item::find($id);
+		$item = Item::findOrFail($id);
 		return View::make('edit')->with('item', $item);
 	}
 	
@@ -81,7 +81,7 @@ class ItemController extends BaseController {
 	 */
 	public function deleteItem($id)
 	{
-		$item = Item::find($id);
+		$item = Item::findOrFail($id);
 		$item->delete();
 		return Redirect::to('list');
 	}

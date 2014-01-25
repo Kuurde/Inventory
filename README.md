@@ -15,7 +15,7 @@ Laravel components used:
 * Eloquent ORM
 * Forms
 * Validation
+* Authentication
 
 Still to come:
-* Authentication
 * Unit testing

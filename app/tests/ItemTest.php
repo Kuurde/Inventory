@@ -42,6 +42,12 @@ class ItemTest extends TestCase
 		$this->assertRedirectedTo('new');
 	}
 	
-	
+	public function testGetEditResponse()
+	{
+		$items = Item::all();
+		$id = $items[0];
+		$this->call('GET', 'edit/'.$id);
+		$this->assertResponseOk();
+	}
 	
 }

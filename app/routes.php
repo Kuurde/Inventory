@@ -16,14 +16,14 @@ Route::get('/', function()
 	return View::make('hello');
 });
 
-Route::get('list', array('as' => 'list', 'uses' => 'ItemController@listItems'));
+Route::get('list', array('as' => 'list', 'before' => 'auth.basic', 'uses' => 'ItemController@listItems'));
 
-Route::get('new', array('as' => 'getNew', 'uses' => 'ItemController@getNew'));
+Route::get('new', array('as' => 'getNew', 'before' => 'auth.basic', 'uses' => 'ItemController@getNew'));
 
-Route::post('new', array('as' => 'postNew', 'uses' => 'ItemController@postNew'));
+Route::post('new', array('as' => 'postNew', 'before' => 'auth.basic', 'uses' => 'ItemController@postNew'));
 
-Route::get('edit/{id}', array('as' => 'getEdit', 'uses' => 'ItemController@getEdit'));
+Route::get('edit/{id}', array('as' => 'getEdit', 'before' => 'auth.basic', 'uses' => 'ItemController@getEdit'));
 
-Route::post('edit/{id}', array('as' => 'postEdit', 'uses' => 'ItemController@postEdit'));
+Route::post('edit/{id}', array('as' => 'postEdit', 'before' => 'auth.basic', 'uses' => 'ItemController@postEdit'));
 
-Route::get('delete/{id}', array('as' => 'delete', 'uses' => 'ItemController@deleteItem'));
+Route::get('delete/{id}', array('as' => 'delete', 'before' => 'auth.basic', 'uses' => 'ItemController@deleteItem'));

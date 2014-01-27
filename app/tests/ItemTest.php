@@ -2,7 +2,11 @@
 
 class ItemTest extends TestCase
 {
-	
+	/*
+	 * ********
+	 * * LIST *
+	 * ********
+	 */
 	public function testGetListResponse()
 	{
 		$this->call('GET', 'list');
@@ -15,6 +19,11 @@ class ItemTest extends TestCase
 		$this->assertViewHas('items');		
 	}
 	
+	/*
+	 * ********
+	 * * NEW *
+	 * ********
+	 */
 	public function testGetNewResponse()
 	{
 		$this->call('GET', 'new');
@@ -42,12 +51,51 @@ class ItemTest extends TestCase
 		$this->assertRedirectedTo('new');
 	}
 	
+	/*
+	 * ********
+	 * * EDIT *
+	 * ********
+	 */
 	public function testGetEditResponse()
 	{
-		$items = Item::all();
-		$id = $items[0];
+		$item = Item::create(array('name' => 'sofa', 'amount' => 1, 'description' => 'Relax!'));
+		$id = $item->id;
 		$this->call('GET', 'edit/'.$id);
 		$this->assertResponseOk();
+	}
+	
+	public function testGetEditWithItem()
+	{
+		$item = Item::create(array('name' => 'big sofa', 'amount' => 1, 'description' => 'Relax even more!'));
+		$id = $item->id;
+		$this->call('GET', 'edit/'.$id);
+		$this->assertViewHas('item');
+	}
+	
+	public function testPostEditWithValidPostData()
+	{
+		$item = Item::where('name', '=', 'sofa')->firstOrFail();
+		$id = $item->id;
+		$post_data = array('name' => 'sofa', 'amount' => 2, 'description' => 'Double relax!');
+		$this->call('POST', 'edit/'.$id, $post_data);
+		$this->assertRedirectedTo('list');
+	}
+	
+	public function testPostEditWithInvalidPostData()
+	{
+		$item = Item::where('name', '=', 'sofa')->firstOrFail();
+		$id = $item->id;
+		$post_data = array('name' => 'sofa', 'amount' => null, 'description' => 'Double relax!');
+		$this->call('POST', 'edit/'.$id, $post_data);
+		$this->assertRedirectedTo('edit/'.$id);
+	}
+	
+	public function testPostEditWithNoPostData()
+	{
+		$item = Item::where('name', '=', 'sofa')->firstOrFail();
+		$id = $item->id;
+		$this->call('POST', 'edit/'.$id);
+		$this->assertRedirectedTo('edit/'.$id);
 	}
 	
 }

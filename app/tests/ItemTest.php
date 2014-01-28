@@ -98,4 +98,16 @@ class ItemTest extends TestCase
 		$this->assertRedirectedTo('edit/'.$id);
 	}
 	
+	/*
+	 * **********
+	 * * DELETE *
+	 * **********
+	 */
+	public function testGetDeleteWithValidId()
+	{
+		$item = Item::where('name', '=', 'sofa')->firstOrFail();
+		$id = $item->id;
+		$this->call('GET', 'delete/'.$id);
+		$this->assertRedirectedTo('list');
+	}
 }

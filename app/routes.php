@@ -13,7 +13,7 @@
 
 Route::get('/', function()
 {
-	return View::make('hello');
+	return Redirect::to('list');
 });
 
 Route::get('list', array('as' => 'list', 'before' => 'auth.basic', 'uses' => 'ItemController@listItems'));

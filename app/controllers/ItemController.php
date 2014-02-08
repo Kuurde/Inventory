@@ -90,7 +90,7 @@ class ItemController extends BaseController {
 		try {
 			$item = Item::findOrFail($id);
 			$item->delete();
-			return Redirect::to('list');
+			return Redirect::to('list')->with('message', 'Successfully deleted');
 		} catch (ModelNotFoundException $e) {
 			return View::make('errors.missing');
 		}

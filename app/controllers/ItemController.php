@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+
 class ItemController extends BaseController {
 	
 	/**
@@ -48,8 +50,12 @@ class ItemController extends BaseController {
 	 */
 	public function getEdit($id)
 	{
-		$item = Item::findOrFail($id);
-		return View::make('edit')->with('item', $item);
+		try {
+			$item = Item::findOrFail($id);
+			return View::make('edit')->with('item', $item);
+		} catch (ModelNotFoundException $e) {
+			return View::make('errors.missing');
+		}
 	}
 	
 	/**
@@ -81,9 +87,13 @@ class ItemController extends BaseController {
 	 */
 	public function deleteItem($id)
 	{
-		$item = Item::findOrFail($id);
-		$item->delete();
-		return Redirect::to('list');
+		try {
+			$item = Item::findOrFail($id);
+			$item->delete();
+			return Redirect::to('list');
+		} catch (ModelNotFoundException $e) {
+			return View::make('errors.missing');
+		}
 	}
 
 }
